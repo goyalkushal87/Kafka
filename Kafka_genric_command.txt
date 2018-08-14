@@ -5,7 +5,7 @@ kafka-topics.bat --list --zookeeper localhost:2181
 
 create topic 
 
-kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic elkpractice
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic cognitive_test
  
 kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test_topic
 
@@ -33,7 +33,7 @@ from begning
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test_topic --from-beginning
 
 
-.\bin\windows\kafka-console-consumer.bat --zookeeper localhost:2181 --topic test_topic --from-beginning --consumer.config .\config\consumer.properties	
+.\bin\windows\kafka-console-consumer.bat --zookeeper localhost:2181 --topic cognitive_test --from-beginning --consumer.config .\config\consumer.properties	
 
 
 for checking lag

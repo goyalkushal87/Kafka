@@ -1,0 +1,76 @@
+package com.info.kafka_stream_demo
+
+import java.util.{Date, Properties}
+import org.apache.kafka.clients.producer.{Callback, RecordMetadata, ProducerRecord, KafkaProducer}
+
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+
+import scala.util.Random
+
+/**
+ * 
+ * 
+ * 
+ * 
+ *  **/
+object ScalaProducerExample extends App {
+   def main(args: Array[String]): Unit = {
+    
+  
+  val events = 15;
+  val topic = "cognitive_test"
+  val brokers = "xxxx:9092";
+  val rnd = new Random()
+ val props = new Properties();
+ //props.put("security.protocol", "PLAINTEXT");
+ props.put("bootstrap.servers", "xxxx:9092"); //The bootstrap.servers config accepts a list of host/port pairs that are used for establishing
+ props.put("acks", "all"); //acknowledgement record complete ISR
+ props.put("retries", "0"); // no of retries
+ props.put("batch.size", "16384"); // batch size
+ props.put("linger.ms", "1");
+ props.put("buffer.memory", "33554432"); // limit the memory
+ props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+ props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+
+ //initiate the producer
+ val producer= new KafkaProducer[String,String](props);
+ // send function return the record meta data
+ //val record = producer.send(new ProducerRecord[String, String]("test_topic", Integer.toString(1), Integer.toString(1))).get;
+ //To make writes synchronous, we can just wait on the returned future by invoking the get()
+//function on the future. If we invoke get() on the future, our application will block
+ 
+ 
+ // we can track the data using record variable.
+ //
+   val runtime = new Date().getTime()
+    val ip = "192.168.2." + rnd.nextInt(255)
+    val msg = runtime + "," + ",www.example.com," + ip
+    val country = "sg"
+    var partition = 0
+    partition match {
+     case 1 => 1
+     case 2 => 2
+     case _ => 0
+   }
+   
+      
+    
+   val data = new ProducerRecord[String, String](topic, partition,ip, msg)
+/* producer.send(data, (RecordMetadata recordmetadata, Exception exception) => {
+     
+ })*/
+ 
+    producer.send(data, new Callback {
+      override def onCompletion(metadata: RecordMetadata, exception: Exception): Unit = {
+        if(exception != null) {
+          
+        } else {
+          println("sucess")
+        }
+        
+      }
+    })
+ producer.close();
+ 
+}
+}
