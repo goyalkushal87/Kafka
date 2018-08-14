@@ -1,0 +1,41 @@
+
+find the list of topic 
+
+kafka-topics.bat --list --zookeeper localhost:2181
+
+create topic 
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic elkpractice
+ 
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test_topic
+
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --config max.message.bytes=64000 --topic delete_this_topic
+
+The max.message.bytes config is the largest message size Kafka will allow to be appended to this topic.
+The default for this config is 1,000,000, however we have set it to be 64000 for the delete_this_topic
+
+
+Modify the "delete_this_topic" topic and change the max.message.bytes config to now be 128000. Enter the following command in the console:
+
+bin/kafka-topics.sh --alter  --zookeeper localhost:2181  --topic delete_this_topic  --config max.message.bytes=128000
+
+
+generate the topic data 
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic test_topic
+
+get the date from current offset
+
+This will start up the Kafka command line console consumer. You will be able to use this tool to read messages in your Kafa topics.
+bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test_topic
+
+from begning
+bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test_topic --from-beginning
+
+
+.\bin\windows\kafka-console-consumer.bat --zookeeper localhost:2181 --topic test_topic --from-beginning --consumer.config .\config\consumer.properties	
+
+
+for checking lag
+
+.\bin\windows\kafka-consumer-groups.bat --describe --zookeeper localhost:2181 --group test-consumer-group
