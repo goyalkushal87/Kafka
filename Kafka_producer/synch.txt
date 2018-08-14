@@ -18,11 +18,11 @@ object ScalaProducerExample extends App {
   
   val events = 15;
   val topic = "test_topic"
-  val brokers = "192.168.0.133:9092";
+  val brokers = "xxx.xxx.0.xxx:9092";
   val rnd = new Random()
  val props = new Properties();
  //props.put("security.protocol", "PLAINTEXT");
- props.put("bootstrap.servers", "192.168.0.133:9092"); //The bootstrap.servers config accepts a list of host/port pairs that are used for establishing
+ props.put("bootstrap.servers", "xxx.xxx.0.xxx:9092"); //The bootstrap.servers config accepts a list of host/port pairs that are used for establishing
  props.put("acks", "all"); //acknowledgement record complete ISR
  props.put("retries", "0"); // no of retries
  props.put("batch.size", "16384"); // batch size
